@@ -1,0 +1,11 @@
+services:
+  - type: worker
+    name: alpaca-mean-reversion-bot
+    env: python
+    buildCommand: ""
+    startCommand: "python bot.py"
+    envVars:
+      - key: ALPACA_API_KEY
+        sync: false
+      - key: ALPACA_SECRET_KEY
+        sync: false
