@@ -11,7 +11,7 @@ LOG_DIR = "logs"
 
 ALPACA_KEY = os.getenv("ALPACA_API_KEY")
 ALPACA_SECRET = os.getenv("ALPACA_SECRET_KEY")
-ALPACA_URL = "https://paper-api.alpaca.markets"
+ALPACA_URL = "https://paper-api.alpaca.markets/v2"
 
 alpaca = REST(ALPACA_KEY, ALPACA_SECRET, ALPACA_URL)
 
