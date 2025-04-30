@@ -1,0 +1,24 @@
+15:59:30 - Running daily trade check...
+15:59:30 - [AAPL] ERROR: Invalid format for parameter start: error parsing '2025-03-20 15:59:30.047897-04:00' as RFC3339 or 2006-01-02 time: parsing time "2025-03-20 15:59:30.047897-04:00": extra text: " 15:59:30.047897-04:00"
+15:59:30 - [MSFT] ERROR: Invalid format for parameter start: error parsing '2025-03-20 15:59:30.976432-04:00' as RFC3339 or 2006-01-02 time: parsing time "2025-03-20 15:59:30.976432-04:00": extra text: " 15:59:30.976432-04:00"
+15:59:30 - [GOOGL] ERROR: Invalid format for parameter start: error parsing '2025-03-20 15:59:31.259805-04:00' as RFC3339 or 2006-01-02 time: parsing time "2025-03-20 15:59:31.259805-04:00": extra text: " 15:59:31.259805-04:00"
+15:59:30 - [AMZN] ERROR: Invalid format for parameter start: error parsing '2025-03-20 15:59:31.573460-04:00' as RFC3339 or 2006-01-02 time: parsing time "2025-03-20 15:59:31.573460-04:00": extra text: " 15:59:31.573460-04:00"
+15:59:30 - [META] ERROR: Invalid format for parameter start: error parsing '2025-03-20 15:59:31.872706-04:00' as RFC3339 or 2006-01-02 time: parsing time "2025-03-20 15:59:31.872706-04:00": extra text: " 15:59:31.872706-04:00"
+16:08:38 - Running daily trade check...
+16:08:38 - [AAPL] ERROR: subscription does not permit querying recent SIP data
+16:08:38 - [MSFT] ERROR: subscription does not permit querying recent SIP data
+16:08:38 - [GOOGL] ERROR: subscription does not permit querying recent SIP data
+16:08:38 - [AMZN] ERROR: subscription does not permit querying recent SIP data
+16:08:38 - [META] ERROR: subscription does not permit querying recent SIP data
+16:10:19 - Running daily trade check...
+16:10:19 - [AAPL] ERROR: stdev requires at least two data points
+16:10:19 - [MSFT] ERROR: stdev requires at least two data points
+16:10:19 - [GOOGL] ERROR: stdev requires at least two data points
+16:10:19 - [AMZN] ERROR: stdev requires at least two data points
+16:10:19 - [META] ERROR: stdev requires at least two data points
+16:11:00 - Running daily trade check...
+16:11:00 - [AAPL] ERROR: stdev requires at least two data points
+16:11:00 - [MSFT] ERROR: stdev requires at least two data points
+16:11:00 - [GOOGL] ERROR: stdev requires at least two data points
+16:11:00 - [AMZN] ERROR: stdev requires at least two data points
+16:11:00 - [META] ERROR: stdev requires at least two data points

@@ -1,0 +1,30 @@
+05:59:31 - Running daily trade check...
+05:59:31 - [AAPL] ERROR: mean requires at least one data point
+05:59:31 - [MSFT] ERROR: mean requires at least one data point
+05:59:31 - [GOOGL] ERROR: mean requires at least one data point
+05:59:31 - [AMZN] ERROR: mean requires at least one data point
+05:59:31 - [META] ERROR: mean requires at least one data point
+06:00:29 - Running daily trade check...
+06:00:29 - [AAPL] ERROR: mean requires at least one data point
+06:00:29 - [MSFT] ERROR: mean requires at least one data point
+06:00:29 - [GOOGL] ERROR: mean requires at least one data point
+06:00:29 - [AMZN] ERROR: mean requires at least one data point
+06:00:29 - [META] ERROR: mean requires at least one data point
+06:06:41 - Running daily trade check...
+06:06:41 - [AAPL] ERROR: mean requires at least one data point
+06:06:41 - [MSFT] ERROR: mean requires at least one data point
+06:06:41 - [GOOGL] ERROR: mean requires at least one data point
+06:06:41 - [AMZN] ERROR: mean requires at least one data point
+06:06:41 - [META] ERROR: mean requires at least one data point
+2025-04-30 15:50:35,242 - === Starting Daily Trading ===
+2025-04-30 15:50:37,163 - AAPL: Latest=211.22, Mean=205.12, Stdev=6.59
+2025-04-30 15:50:37,163 - AAPL: No trade condition met.
+2025-04-30 15:50:37,393 - MSFT: Latest=394.04, Mean=380.55, Stdev=13.93
+2025-04-30 15:50:37,394 - MSFT: No trade condition met.
+2025-04-30 15:50:37,625 - GOOGL: Latest=160.11, Mean=156.59, Stdev=5.33
+2025-04-30 15:50:37,626 - GOOGL: No trade condition met.
+2025-04-30 15:50:37,859 - AMZN: Latest=187.40, Mean=181.65, Stdev=8.41
+2025-04-30 15:50:37,859 - AMZN: No trade condition met.
+2025-04-30 15:50:38,090 - META: Latest=554.55, Mean=526.91, Stdev=26.77
+2025-04-30 15:50:38,791 - META: SELL order placed. ID: 5135a0a6-87cd-45ef-b2ff-c7b5a39830e7
+2025-04-30 15:50:38,792 - === Trading Completed ===

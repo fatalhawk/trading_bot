@@ -1,2 +1,2 @@
-alpaca-trade-api
-pytz
+alpaca-py==0.18.0
+

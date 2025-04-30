@@ -1,81 +1,91 @@
 import os
-import datetime
-import statistics
-import pytz
-from alpaca_trade_api.rest import REST, TimeFrame
+import logging
+from datetime import datetime, timedelta, timezone
+from statistics import mean, stdev
 
-# === Config ===
-STOCKS = ["AAPL", "MSFT", "GOOGL", "AMZN", "META"]
-DAYS = 20
-LOG_DIR = "logs"
+from alpaca.data.historical import StockHistoricalDataClient
+from alpaca.data.requests import StockBarsRequest
+from alpaca.data.timeframe import TimeFrame
+from alpaca.trading.client import TradingClient
+from alpaca.trading.requests import MarketOrderRequest
+from alpaca.trading.enums import OrderSide, TimeInForce
 
-ALPACA_KEY = os.getenv("ALPACA_API_KEY")
-ALPACA_SECRET = os.getenv("ALPACA_SECRET_KEY")
-ALPACA_URL = "https://paper-api.alpaca.markets/v2"
+# === ENVIRONMENT VARIABLES ===
+ALPACA_API_KEY = os.getenv("ALPACA_API_KEY")
+ALPACA_SECRET_KEY = os.getenv("ALPACA_SECRET_KEY")
+LOG_DIR = os.path.join(os.path.dirname(__file__), "logs")
+SYMBOLS = ["AAPL", "MSFT", "GOOGL", "AMZN", "META"]
 
-alpaca = REST(ALPACA_KEY, ALPACA_SECRET, ALPACA_URL)
+# === SETUP LOGGING ===
+os.makedirs(LOG_DIR, exist_ok=True)
+log_path = os.path.join(LOG_DIR, f"log_{datetime.now().date()}.txt")
+logging.basicConfig(filename=log_path, level=logging.INFO, format="%(asctime)s - %(message)s")
 
-eastern = pytz.timezone("US/Eastern")
-now = datetime.datetime.now(eastern)
-today_str = now.strftime("%Y-%m-%d")
+# === ALPACA CLIENTS ===
+trading_client = TradingClient(ALPACA_API_KEY, ALPACA_SECRET_KEY, paper=True)
+data_client = StockHistoricalDataClient(ALPACA_API_KEY, ALPACA_SECRET_KEY)
 
-def log(message):
-    os.makedirs(LOG_DIR, exist_ok=True)
-    with open(f"{LOG_DIR}/log_{today_str}.txt", "a") as f:
-        f.write(f"{now.strftime('%H:%M:%S')} - {message}\n")
-    print(message)
-
-def get_position(symbol):
-    try:
-        pos = alpaca.get_position(symbol)
-        return float(pos.qty)
-    except:
-        return 0
 
 def fetch_prices(symbol):
-    end = datetime.datetime.now(eastern)
-    start = end - datetime.timedelta(days=DAYS * 2)
-    bars = alpaca.get_bars(symbol, TimeFrame.Day, start=start, end=end).df
-    return bars['close'][-DAYS:].tolist()
+    end = datetime.now(timezone.utc).date()
+    start = end - timedelta(days=10)
 
-def should_buy(prices):
-    mean = statistics.mean(prices[:-1])
-    std = statistics.stdev(prices[:-1])
-    z = (prices[-1] - mean) / std
-    return z < -1.0, z
+    request = StockBarsRequest(
+        symbol_or_symbols=symbol,
+        start=start,
+        end=end,
+        timeframe=TimeFrame.Day,
+        feed="iex"
+    )
 
-def should_sell(prices):
-    mean = statistics.mean(prices[:-1])
-    std = statistics.stdev(prices[:-1])
-    z = (prices[-1] - mean) / std
-    return z > 1.0, z
+    bars = data_client.get_stock_bars(request).data.get(symbol, [])
+    if len(bars) < 2:
+        logging.warning(f"{symbol}: Not enough data to calculate mean or stdev.")
+        return []
 
-def trade(symbol):
-    try:
-        prices = fetch_prices(symbol)
-        price = prices[-1]
-        qty = get_position(symbol)
+    return [bar.close for bar in bars]
 
-        buy, z_buy = should_buy(prices)
-        sell, z_sell = should_sell(prices)
 
-        if buy and qty == 0:
-            alpaca.submit_order(symbol=symbol, qty=1, side='buy', type='market', time_in_force='day')
-            log(f"[{symbol}] BUY at {price:.2f}, Z={z_buy:.2f}")
-        elif sell and qty > 0:
-            alpaca.submit_order(symbol=symbol, qty=1, side='sell', type='market', time_in_force='day')
-            log(f"[{symbol}] SELL at {price:.2f}, Z={z_sell:.2f}")
-        else:
-            z = z_buy if qty == 0 else z_sell
-            log(f"[{symbol}] HOLD at {price:.2f}, Z={z:.2f}")
+def trade_symbol(symbol):
+    prices = fetch_prices(symbol)
+    if len(prices) < 2:
+        return
 
-    except Exception as e:
-        log(f"[{symbol}] ERROR: {e}")
+    avg = mean(prices)
+    volatility = stdev(prices)
+    latest = prices[-1]
 
-def main():
-    log("Running daily trade check...")
-    for symbol in STOCKS:
-        trade(symbol)
+    logging.info(f"{symbol}: Latest={latest:.2f}, Mean={avg:.2f}, Stdev={volatility:.2f}")
+
+    # Mean Reversion Logic: Buy if price < mean - stdev, sell if > mean + stdev
+    side = None
+    if latest < avg - volatility:
+        side = OrderSide.BUY
+    elif latest > avg + volatility:
+        side = OrderSide.SELL
+
+    if side:
+        try:
+            order = MarketOrderRequest(
+                symbol=symbol,
+                qty=1,
+                side=side,
+                time_in_force=TimeInForce.DAY
+            )
+            response = trading_client.submit_order(order)
+            logging.info(f"{symbol}: {side.name} order placed. ID: {response.id}")
+        except Exception as e:
+            logging.error(f"{symbol}: Error placing order: {e}")
+    else:
+        logging.info(f"{symbol}: No trade condition met.")
+
+
+def run_bot():
+    logging.info("=== Starting Daily Trading ===")
+    for symbol in SYMBOLS:
+        trade_symbol(symbol)
+    logging.info("=== Trading Completed ===")
+
 
 if __name__ == "__main__":
-    main()
+    run_bot()
