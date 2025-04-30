@@ -5,6 +5,9 @@ on:
     - cron: "0 14 * * 1-5"  # Runs at 14:00 UTC = 10:00 AM US Eastern (Mon-Fri)
   workflow_dispatch:       # Optional: manual trigger
 
+permissions:
+  contents: write
+
 jobs:
   trade:
     runs-on: ubuntu-latest
