@@ -1,0 +1,12 @@
+2025-05-28 14:22:14,578 - === Starting Daily Trading ===
+2025-05-28 14:22:14,911 - AAPL: Latest=200.28, Mean=202.47, Stdev=4.82
+2025-05-28 14:22:14,911 - AAPL: No trade condition met.
+2025-05-28 14:22:14,931 - MSFT: Latest=460.33, Mean=455.84, Stdev=3.90
+2025-05-28 14:22:15,297 - MSFT: SELL order placed. ID: cb217d73-166e-4138-86b0-9a086ddfb0bd
+2025-05-28 14:22:15,314 - GOOGL: Latest=172.88, Mean=168.56, Stdev=3.12
+2025-05-28 14:22:15,333 - GOOGL: SELL order placed. ID: cb3e4c38-0007-4ab9-8373-fcb8b2d0f333
+2025-05-28 14:22:15,349 - AMZN: Latest=206.00, Mean=203.60, Stdev=2.27
+2025-05-28 14:22:15,364 - AMZN: SELL order placed. ID: 8ea98210-8da8-4d1a-9af1-75e66a39656c
+2025-05-28 14:22:15,381 - META: Latest=642.05, Mean=636.51, Stdev=5.43
+2025-05-28 14:22:15,395 - META: SELL order placed. ID: fc8c03dd-5d8b-477c-b54e-99590161eb2d
+2025-05-28 14:22:15,395 - === Trading Completed ===
