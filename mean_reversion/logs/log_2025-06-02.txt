@@ -1,0 +1,12 @@
+2025-06-02 14:21:58,869 - === Starting Daily Trading ===
+2025-06-02 14:21:59,257 - AAPL: Latest=200.64, Mean=199.33, Stdev=2.27
+2025-06-02 14:21:59,257 - AAPL: No trade condition met.
+2025-06-02 14:21:59,303 - MSFT: Latest=459.97, Mean=457.39, Stdev=4.05
+2025-06-02 14:21:59,303 - MSFT: No trade condition met.
+2025-06-02 14:21:59,344 - GOOGL: Latest=171.63, Mean=171.45, Stdev=1.73
+2025-06-02 14:21:59,344 - GOOGL: No trade condition met.
+2025-06-02 14:21:59,395 - AMZN: Latest=204.78, Mean=204.46, Stdev=1.97
+2025-06-02 14:21:59,395 - AMZN: No trade condition met.
+2025-06-02 14:21:59,435 - META: Latest=647.53, Mean=641.00, Stdev=8.23
+2025-06-02 14:21:59,435 - META: No trade condition met.
+2025-06-02 14:21:59,435 - === Trading Completed ===
