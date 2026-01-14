@@ -1,0 +1,12 @@
+2026-01-14 14:28:08,542 - === Starting Daily Trading ===
+2026-01-14 14:28:08,741 - AAPL: Latest=261.05, Mean=261.36, Stdev=2.77
+2026-01-14 14:28:08,741 - AAPL: No trade condition met.
+2026-01-14 14:28:08,778 - MSFT: Latest=470.67, Mean=477.15, Stdev=4.29
+2026-01-14 14:28:08,951 - MSFT: BUY order placed. ID: 5203cccf-fc72-4a8c-a2d3-266102c677c4
+2026-01-14 14:28:08,971 - GOOGL: Latest=335.99, Mean=324.96, Stdev=7.92
+2026-01-14 14:28:08,990 - GOOGL: SELL order placed. ID: 5dab14bc-2061-4e76-9b1c-c4157f8af058
+2026-01-14 14:28:09,008 - AMZN: Latest=242.58, Mean=242.57, Stdev=4.94
+2026-01-14 14:28:09,008 - AMZN: No trade condition met.
+2026-01-14 14:28:09,037 - META: Latest=630.90, Mean=648.57, Stdev=10.28
+2026-01-14 14:28:09,055 - META: BUY order placed. ID: e1300aa1-02f4-43c5-b806-acec09ac4912
+2026-01-14 14:28:09,055 - === Trading Completed ===
