@@ -1,4 +1,5 @@
 import os
+import logging
 import numpy as np
 import pandas as pd
 import gymnasium as gym
@@ -13,6 +14,12 @@ from alpaca.data.timeframe import TimeFrame
 # === ENVIRONMENT VARIABLES ===
 ALPACA_API_KEY = os.getenv("ALPACA_API_KEY")
 ALPACA_SECRET_KEY = os.getenv("ALPACA_SECRET_KEY")
+LOG_DIR = os.path.join(os.path.dirname(__file__), "logs")
+
+# === SETUP LOGGING ===
+os.makedirs(LOG_DIR, exist_ok=True)
+log_path = os.path.join(LOG_DIR, f"log_{datetime.now().date()}.txt")
+logging.basicConfig(filename=log_path, level=logging.INFO, format="%(asctime)s - %(message)s")
 
 # === 1. FETCH TRAINING DATA ===
 def get_historical_data(symbol, days=365):
@@ -113,24 +120,24 @@ class TradingEnv(gym.Env):
 
 # === 3. TRAIN AND EXECUTE ===
 def run_rl_bot(symbol):
-    print(f"Fetching data for {symbol}...")
+    logging.info(f"Fetching data for {symbol}...")
     df = get_historical_data(symbol, days=700) # Fetch ~2 years of data
     
     if len(df) < 50:
-        print("Not enough data to train.")
+        logging.warning("Not enough data to train.")
         return
         
     # Initialize the custom environment
     env = TradingEnv(df)
     
-    print("Training the RL Agent (PPO)...")
+    logging.info("Training the RL Agent (PPO)...")
     # PPO (Proximal Policy Optimization) is a highly stable RL algorithm
     model = PPO("MlpPolicy", env, verbose=0)
     
     # Train for 20,000 timesteps (epochs). In production, this would be much higher.
     model.learn(total_timesteps=20000)
     
-    print("Training complete. Evaluating current market state...")
+    logging.info("Training complete. Evaluating current market state...")
     
     # To get the LIVE prediction, we reset the environment and force it to the final day
     obs, _ = env.reset()
@@ -141,7 +148,7 @@ def run_rl_bot(symbol):
     action, _states = model.predict(current_obs)
     
     action_map = {0: "HOLD", 1: "BUY", 2: "SELL"}
-    print(f"[{symbol}] The AI Agent recommends: {action_map[action]}")
+    logging.info(f"[{symbol}] The AI Agent recommends: {action_map[action]}")
     
     # From here, you would route the 'action' variable to your Alpaca MarketOrderRequest 
     # exactly like you did in the Mean Reversion script.
