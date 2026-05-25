@@ -1,0 +1,5 @@
+alpaca-py
+gymnasium
+stable-baselines3
+pandas
+numpy
