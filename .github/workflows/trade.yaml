@@ -27,14 +27,11 @@ jobs:
       - name: Install dependencies
         run: pip install -r mean_reversion/requirements.txt
 
-      - name: Install RL dependencies
-        run: pip install -r RL/requirements.txt
-
       - name: Run trade bot for mean_reversion
         run: python mean_reversion/main.py
 
-      - name: Run trade bot for RL
-        run: python RL/main.py
+      - name: Run trade bot for pairs trading
+        run: python pairs_trading/main.py
 
       - name: Commit logs for mean_reversion
         run: |
@@ -44,10 +41,10 @@ jobs:
           git commit -m "Log update - ${{ github.run_id }}" || echo "No changes to commit"
           git push
 
-      - name: Commit logs for RL
+      - name: Commit logs for pairs trading
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
-          git add RL/logs/
+          git add pairs_trading/logs/
           git commit -m "Log update - ${{ github.run_id }}" || echo "No changes to commit"
           git push
